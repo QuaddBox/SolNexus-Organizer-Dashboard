@@ -1,0 +1,54 @@
+@use './abstracts/' as *;
+
+
+.dashboardhome{
+    padding: 1rem .25rem;
+}
+.dashboardhome__heading{
+    font-size: 2.25rem;
+
+    @include responsiveness(medium){
+        font-size: 1.75rem;
+    }
+}
+
+.dashboardhome__cardContainer{
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    @include responsiveness(medium){
+        grid-template-columns: repeat(1, 1fr);
+        margin-top: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .dashboardhome__card{
+        background-color: $secondary-color;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding-block: 1rem;
+        border-radius: 8px;
+
+        h3{
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        p{
+            width: 70%;
+            text-align: center;
+            color: #9e9e9e;
+        }
+        a{
+            background-color: $secondary-bg-color;
+            color: white;
+            padding: .5rem 1rem;
+            border-radius: 5px;
+        }
+    }
+
+    
+}

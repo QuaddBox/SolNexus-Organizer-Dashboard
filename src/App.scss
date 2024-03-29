@@ -1,0 +1,35 @@
+@use "./assets/styles/abstracts/" as *;
+
+.logo {
+  // color: black;
+  font-size: 1rem;
+  font-weight: 700;
+  background: linear-gradient(20deg, #630897 30%, #e48aff, #00b6d8, #00d0bb);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  @include responsiveness(medium) {
+    font-size: 0.75rem;
+  }
+}
+
+.dashboard__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #000;
+  div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @include responsiveness(medium) {
+    padding-inline: 1rem;
+  }
+}

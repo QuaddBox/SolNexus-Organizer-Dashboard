@@ -1,0 +1,101 @@
+@use "./abstracts/" as *;
+
+.dashboardEvents {
+  padding-top: 1.5rem;
+  padding-inline: 1rem;
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      background-color: $secondary-bg-color;
+      color: white;
+      padding-inline: 0.75rem;
+      padding-block: 0.5rem;
+      border-radius: 5px;
+    }
+  }
+
+  .dashboardEvents__searchbar-container {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .mantine-Select-input::placeholder {
+      color: white;
+    }
+  }
+
+ 
+  .eventsTable {
+    margin-top: 2rem;
+    width: 100%;
+    &__header {
+      background-color: rgb(20, 20, 20);
+      @include responsiveness(medium) {
+        display: none;
+      }
+      th {
+        padding: 0.5rem;
+        text-align: left;
+      }
+    }
+
+    &__body {
+      tr {
+        padding-block: 1rem;
+        .event {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+
+          @include responsiveness(medium) {
+            flex-direction: column;
+          }
+          .date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            @include responsiveness(medium) {
+              display: none;
+            }
+            p {
+              font-size: 14px;
+              color: #1eb0dd;
+            }
+            span {
+              font-size: 18px;
+              font-weight: 500;
+            }
+          }
+          .placeholder-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #9e9e9e;
+            padding: 0.75rem;
+
+            @include responsiveness(medium) {
+              display: none;
+            }
+          }
+          .eventInfo {
+            padding-top: 1rem;
+            .title {
+              font-size: 16px;
+              font-weight: 600;
+              color: white;
+            }
+            p {
+              font-size: 14px;
+              color: #9e9e9e;
+            }
+          }
+        }
+      }
+    }
+  }
+}

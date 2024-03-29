@@ -1,0 +1,241 @@
+@use "./abstracts/" as *;
+
+.createEvent {
+  .eventsLink {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    min-width: 440px;
+    max-width: 2000px;
+    margin: 1rem auto;
+    color: #880ad0;
+  }
+
+  .form {
+    .form__container {
+      width: 50%;
+      min-width: 440px;
+      max-width: 2000px;
+      //   background-color: red;
+
+      margin-inline: auto;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    
+
+    .form__fieldContainer{
+      .error{
+        color: #d04141;
+
+        label{
+          color: white;
+        }
+      }
+    }
+    .form__inputSection {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+
+      .form__eventImageContainer{
+        position: relative;
+        div.overlay{
+          
+          opacity: 0.5;
+          background-color: rgb(20, 20, 20);
+        }
+        div{
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          top: 0;
+          left: 0;
+
+          button.hidden{
+            display: none;
+          }
+
+          button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: .5rem 1rem;
+            color: #880ad0;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: .5rem;
+
+            &:hover{
+              cursor: pointer;
+            }
+          }
+        }
+        img{
+          border-radius: 1rem;
+          object-fit: cover;
+          max-width: 100%;
+        }
+      }
+
+      &__header {
+        p {
+          color: #9e9e9e;
+        }
+
+        .eventType-container{
+          margin-top: .75rem;
+          display: flex;
+          gap: 1rem;
+
+          button{
+            border: none;
+            padding: .5rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .25rem;
+            border-radius: 20px;
+            background-color: #9e9e9e;
+          }
+          button.active{
+            background-color: #880ad0;
+            color: white;
+            
+          }
+        }
+      }
+    }
+
+    .line {
+      border: 0;
+      margin: 0;
+      width: 100%;
+      height: 1px;
+      background-color: #9e9e9e36;
+      margin-block: 1rem;
+    }
+  }
+
+  // .dateTimePicker button{
+  //   border-color: red;
+  // }
+
+  .form__inputContainer,
+  .mantine-DateTimePicker-wrapper{
+    position: relative;
+    height: 3rem;
+
+    .form__input,
+    .mantine-DateTimePicker-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 2px solid #9e9e9e;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: inherit;
+      color: white;
+      outline: none;
+      padding: 1.25rem;
+      background: none;
+
+      &.select {
+        padding: 0 1.25rem;
+      }
+
+      &.error{
+        border-color: #d04141;
+      }
+
+      &:hover {
+        border-color: $secondary-bg-color;
+      }
+
+      /* Change border when input focus*/
+
+      &:focus {
+        border-color: $secondary-bg-color;
+      }
+    }
+
+    /* Style to give error style to mantine datetime picker*/
+    .mantine-DateTimePicker-root.error button{
+      border-color: #d04141;
+    }
+
+    .mantine-DateTimePicker-input {
+      padding: 0 1rem;
+    }
+
+    .form__label {
+      position: absolute;
+      left: 1rem;
+      top: 0.8rem;
+      padding: 0 0.5rem;
+      color: #9e9e9ec7;
+      cursor: text;
+      transition: top 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+      background-color: $primary-color;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    // .mantine-DateTimePicker-label {
+    //   top: -0.5rem;
+    //   font-size: 0.9rem;
+    //   left: 0.8rem;
+    //   color: #9e9e9e;
+    // }
+
+    .form__label.required::after {
+      content: "*";
+      color: rgb(239, 68, 68);
+    }
+  }
+
+  .form__input:focus ~ .form__label,
+  .form__input:not(:placeholder-shown).form__input:not(:focus) ~ .form__label {
+    top: -0.5rem;
+    font-size: 0.9rem;
+    left: 0.8rem;
+    color: #9e9e9e;
+  }
+
+  &__footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    background-color: $primary-color;
+    border-top: 1px solid $secondary-color;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 3rem;
+    button {
+      border: none;
+      padding: 0.25rem 1rem;
+      border-radius: 0.25rem;
+    }
+    .discardBtn {
+      border: 1px solid $secondary-bg-color;
+      background-color: $primary-color;
+      color: $secondary-bg-color;
+    }
+    .submitBtn {
+      background-color: $secondary-bg-color;
+      color: white;
+    }
+  }
+}
