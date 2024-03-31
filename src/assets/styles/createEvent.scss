@@ -16,8 +16,8 @@
 	.form {
 		.form__container {
 			width: 50%;
-			min-width: 440px;
-			max-width: 2000px;
+			min-width: 500px;
+			// max-width: 4000px;
 			//   background-color: red;
 
 			margin-inline: auto;
@@ -40,7 +40,7 @@
 		}
 
 		.mantine-Textarea-label {
-			font-size: 15px;
+			font-size: 17px;
 			font-weight: 600;
 			padding-bottom: 5px;
 			color: #9e9e9e;
@@ -206,6 +206,7 @@
 			display: flex;
 			align-items: center;
 			gap: 0.25rem;
+			// font-size: 1.25rem;
 		}
 
 		// .mantine-DateTimePicker-label {
@@ -255,4 +256,8 @@
 			color: white;
 		}
 	}
+}
+
+.form__inputSection__header h2{
+	font-size: 18px;
 }

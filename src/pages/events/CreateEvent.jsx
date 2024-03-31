@@ -189,7 +189,7 @@ const CreateEvent = () => {
 							<hr className="line" />
 							<section className="form__inputSection">
 								<header className="form__inputSection__header">
-									<h2 className="text-red-500">Location</h2>
+									<h2>Location</h2>
 									<p>
 										Help people in the area discover your event and let
 										attendees know where to show up.
@@ -256,7 +256,7 @@ const CreateEvent = () => {
 							<hr className="line" />
 							<section className="form__inputSection">
 								<header className="form__inputSection__header">
-									<h2 className="text-red-500">Date and time</h2>
+									<h2>Date and time</h2>
 									<p>
 										Tell event-goers when your event starts and ends so they can
 										make plans to attend.
