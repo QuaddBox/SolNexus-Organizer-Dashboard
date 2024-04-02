@@ -3,7 +3,7 @@ import "../assets/styles/dashboardOrder.scss"
 import { Html5QrcodeScanner } from 'html5-qrcode'
 import { Link } from 'react-router-dom';
 
-const DashboardOrders = () => {
+const DashboardVerifyTickets = () => {
   const [scanResult, setscanResult] = useState(null);
   useEffect(() => {
     const scanner = new Html5QrcodeScanner('reader', {
@@ -38,4 +38,4 @@ const DashboardOrders = () => {
   )
 }
 
-export default DashboardOrders
+export default DashboardVerifyTickets

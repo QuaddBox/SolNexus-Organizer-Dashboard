@@ -27,9 +27,9 @@ const DashboardRoot = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to={'/organizations/orders'}>
+                        <NavLink to={'/organizations/tickets/verify'}>
                             <BsFillTicketDetailedFill />
-                            Orders
+                            Ticket Verification
                         </NavLink>
                     </li>
                 </ul>
