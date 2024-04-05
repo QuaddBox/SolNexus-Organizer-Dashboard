@@ -1,4 +1,3 @@
-import React from "react";
 import Logo from "./Logo";
 import MenuDrawer from "./MenuDrawer";
 import UserButton from "./UserButton";

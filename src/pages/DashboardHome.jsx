@@ -1,12 +1,14 @@
-import React from 'react'
+import { useContext } from 'react';
 import '../assets/styles/dashboardHome.scss'
 import { MdOutlineEdit } from "react-icons/md";
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
 
 const DashboardHome = () => {
+  const {user} = useContext(AuthContext)
   return (
     <section className='dashboardhome'>
-        <h1 className='dashboardhome__heading'>Hello there, Godrice</h1>
+        <h1 className='dashboardhome__heading'>Hello there, {user?user.name:"User"}</h1>
         <div className='dashboardhome__cardContainer'>
             <div className='dashboardhome__card'>
                 <MdOutlineEdit color='#630897' size={25}/>

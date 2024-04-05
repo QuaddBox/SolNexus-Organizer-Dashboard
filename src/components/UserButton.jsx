@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import { forwardRef } from "react";
 // import { IconChevronRight } from "@tabler/icons-react"
 import { IoChevronForwardSharp } from "react-icons/io5";
@@ -7,17 +9,18 @@ import { MdOutlineDelete } from 'react-icons/md'
 import '../assets/styles/dashboardRoot.scss'
 import { GoArrowSwitch } from "react-icons/go";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
-const UserButton = forwardRef(
-  ({ image, name, email, icon, ...others }, ref) => (
+// eslint-disable-next-line react/display-name
+const UserButton = forwardRef(({ image, name, email, icon, ...others }, ref) => (
     <UnstyledButton
       ref={ref}
       style={{
         // padding: "var(--mantine-spacing-md)",
         padding: "10px",
         color: "var(--mantine-color-text)",
-        borderRadius: "var(--mantine-radius-sm)",
-        backgroundColor: '#ffffff26',
+        // borderRadius: "var(--mantine-radius-sm)",
         backgroundColor: '#141414',
         borderRadius: '12px'
       }}
@@ -40,16 +43,17 @@ const UserButton = forwardRef(
       </Group>
     </UnstyledButton>
   )
-);
-
-export default function () {
+)
+export default function Data () {
+  const {user} = useContext(AuthContext)
+  // console.log(user)
   return (
     <Menu withArrow>
       <Menu.Target>
         <UserButton
           image="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png"
-          name="Harriette Spoonlicker"
-          email="hspoonlicker@outlook.com"
+          name={user?user.name:"N/A"}
+          email={user?user.email:"N/A"}
         />
       </Menu.Target>
       {/* ... menu items */}
@@ -57,6 +61,9 @@ export default function () {
         {/* <Menu.Label>Edit </Menu.Label> */}
         <Menu.Item leftSection={<GoArrowSwitch size={14} />}>
           <Link to={"https://sol-nexus.vercel.app/"}>Switch To Attending</Link>
+        </Menu.Item> 
+        <Menu.Item leftSection={<Avatar size={14} />}>
+          <Link to={"/organizations/profile"}>View Profile</Link>
         </Menu.Item>
         <Menu.Divider />
 

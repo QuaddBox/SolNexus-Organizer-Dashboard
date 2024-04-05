@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import DashboardRoot from "./layout/DashboardRoot";
 import { AddOrganizerProfile, CreateEvent, DashboardEvents, DashboardHome, DashboardOrders } from "./pages";
+import OrganizerProfile from './pages/organizer/Profile';
 
 function App() {
   const router = createBrowserRouter(
@@ -16,7 +17,7 @@ function App() {
           <Route index path="home" element={<DashboardHome />} />
           <Route path="events" element={<DashboardEvents />}/>
           <Route path="orders" element={<DashboardOrders />} />
-          
+          <Route path="profile" element={<OrganizerProfile/>} />
         </Route>
         <Route path='/manage/events/'>
           <Route path='create' element={<CreateEvent />} />
