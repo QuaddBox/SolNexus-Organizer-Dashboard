@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
-import {useState } from "react";
+import {useState,useEffect} from "react";
 import EventService from "../../../services/EventService"
 import { DashboardHeader } from "../../components";
 import "../../assets/styles/createEvent.scss";
 import { Link } from "react-router-dom";
-import { useDisclosure } from '@mantine/hooks';
 import { IoChevronBack } from "react-icons/io5";
+import { TbCurrencySolana } from "react-icons/tb";
+
 import { DateTimePicker } from "@mantine/dates";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,102 +16,59 @@ import { IoMdPin } from "react-icons/io";
 import { MdOutlineOnlinePrediction } from "react-icons/md";
 import imagePlaceholder from "../../assets/images/event-image-placeholder.jpg";
 import { FiUpload } from "react-icons/fi";
-import { FileButton,Dialog, LoadingOverlay, Loader} from "@mantine/core";
-import FirebaseService, { uploadFile } from "../../../services/FirebaseService";
-import { useContext } from "react";
-import { AuthContext } from "../../contexts/AuthContext";
-// import idl from '../../../idl.json'
-// import { Connection, PublicKey } from "@solana/web3.js";
-// import {web3 } from "@project-serum/anchor"
-// import {Buffer } from 'buffer'
+import { FileButton } from "@mantine/core";
+import idl from '../../../idl.json'
+import { Connection, PublicKey } from "@solana/web3.js";
+import {web3 } from "@project-serum/anchor"
+import {Buffer } from 'buffer'
 
-// const {SystemProgram, Keypair } = web3
-// window.Buffer = Buffer
-// const programID = new PublicKey(idl.accounts)
+const {SystemProgram, Keypair } = web3
+window.Buffer = Buffer
+const programID = new PublicKey(idl.accounts)
 
 const CreateEvent = () => {
   const [eventType, setEventType] = useState("Venue");
-  const [isSubmitting,setIsSubmitting] = useState(false)
+  const [file, setFile] = useState(null);
   const [fileDataUrl, setFileDataUrl] = useState(null)
-  const [eventBanner,setEventBanner] = useState(null)
-  const [opened,{toggle,close}] = useDisclosure(false)
-  const {user,walletAddress} = useContext(AuthContext)
-  const [isUploading,setIsUploading] = useState(false)
+  
 
   const {
     register,
     handleSubmit,
-    setValue,
-    formState: { errors,},
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(createEventVal),
   });
 
-  const submitData = async(data, e) => {
+  const submitData = (data, e) => {
     e.preventDefault()
-    const {organiserProfile} = user
-    if(!fileDataUrl){
-      toggle()
-      return alert("Please provide an event banner")
-    }
-    setIsSubmitting(true)
-    const res = await EventService.createEvent({
-      ...data,
-      eventBanner,
-      host:organiserProfile?organiserProfile.name:user.name,
-      organiserProfile:organiserProfile?organiserProfile:null,
-      ticketsSold:[],
-      eventType,
-      createdBy:user.email,
-      refundPolicy:false,
-      walletAddress,
-    })
-    console.log(res)
-    setIsSubmitting(false)
-    if(res.status === "success"){
-      alert("You have successfully created your event")
-      setTimeout(()=>{
-        window.location.assign("/organizations/events")
-      },6000)
-    }else{
-      alert(res.errror_message)
-    }
+    console.log(data);
   };
 
-  async function uploadImage(file){
-    console.log(file)
+  useEffect(() => {
     let fileReader, isCancel = false
     if(file){
       fileReader = new FileReader()
-      fileReader.onload = async(e) => {
+      fileReader.onload = (e) => {
         const { result } = e.target
         if(result && !isCancel){
-          setIsUploading(true)
-          const res = await uploadFile(file,file.name)
-          setIsUploading(false)
-          console.log(res)
-          if(res.status === "success"){
-            setFileDataUrl(result)
-            setEventBanner(res.data)
-          }else{
-            alert(res.errror_message)
-          }
+          setFileDataUrl(result)
         }
       }
       fileReader.readAsDataURL(file)
-     }
-  }
+    }
+    return () => {
+      isCancel = true;
+      if (fileReader && fileReader.readyState === 1) {
+        fileReader.abort();
+      }
+    }
+  }, [file])
 
   return (
     <>
       <DashboardHeader />
       <APIProvider>
-      <LoadingOverlay pos={"fixed"} visible={isSubmitting} zIndex={1000} overlayProps={{ radius: "sm", blur: 2,color:"#000" }}>
-        <p>Creating Event</p>
-      </LoadingOverlay>
-      <Dialog opened={false} onClose={close}>
-        <p className="text-red">Please add event banner</p>
-      </Dialog>
         <main className="createEvent">
           <Link to="/organizations/events" className="eventsLink">
             <IoChevronBack />
@@ -119,32 +77,22 @@ const CreateEvent = () => {
           <form action="" className="form" onSubmit={handleSubmit(submitData)}>
             <div className="form__container">
               <section className="form__inputSection">
-              {isUploading?
-                  (<div className="bg-[#333333] flex items-center justify-center h-56 rounded-md mt-3">
-                    <div className="text-center">
-                      <Loader color="purple"/>
-                      <p>Uploading Image</p>
-                    </div>
+                <div className="form__eventImageContainer">
+                  <div className={`${fileDataUrl ? "" : "overlay"}`}>
+                    <FileButton
+                      onChange={setFile}
+                      accept="image/png,image/jpeg"
+                    >
+                      {(props) => (
+                        <button type="button" {...props} className={`${fileDataUrl && "hidden"}`}>
+                          <FiUpload size={20} />
+                          Upload Photo
+                        </button>
+                      )}
+                    </FileButton>
                   </div>
-                  )
-                  :(
-                    <div className="form__eventImageContainer">
-                    <div className={`${fileDataUrl ? "" : "overlay"}`}>
-                        <FileButton
-                          onChange={uploadImage}
-                          accept="image/png,image/jpeg"
-                        >
-                          {(props) => (
-                            <button type="button" {...props} className={`${fileDataUrl && "hidden"}`}>
-                              <FiUpload size={20} />
-                              Upload Photo
-                            </button>
-                          )}
-                        </FileButton>
-                      </div>
-                      <img src={fileDataUrl ? fileDataUrl : imagePlaceholder} alt="" />
-                    </div>
-                  )}
+                  <img src={fileDataUrl ? fileDataUrl : imagePlaceholder} alt="" />
+                </div>
                 <header className="form__inputSection__header">
                   <h2>Basic Info</h2>
                   <p>
@@ -175,22 +123,6 @@ const CreateEvent = () => {
                   {errors.eventTitle?.message && (
                     <div className="error">{errors.eventTitle?.message}</div>
                   )}
-                </div> 
-                <div className="mt-2 flex flex-col gap-2">
-                  <p>Event Description</p>
-                <textarea
-                    cols="10"
-                    rows="5"
-                    type="text"
-                    placeholder="e.g I want to be able to teach people to fly"
-                    className="bg-inherit border border-text-color rounded-md py-2 px-3 w-full "
-                    {...register("description")}
-                  ></textarea>
-                  {errors.description?.message && (
-                    <p className="text-sm font-medium text-error-color">
-                      {errors.description.message}
-                    </p>
-                  )}
                 </div>
                 <div className="form__fieldContainer">
                   <div className="form__inputContainer">
@@ -202,7 +134,7 @@ const CreateEvent = () => {
                       }`}
                       {...register("organizer")}
                     >
-                      <option value="Nexus" style={{ color: "black" }}>
+                      <option value="" style={{ color: "black" }}>
                         Nexus
                       </option>
                     </select>
@@ -224,7 +156,7 @@ const CreateEvent = () => {
                       }`}
                       {...register("category")}
                     >
-                      <option value="Nexus" style={{ color: "black" }}>
+                      <option value="" style={{ color: "black" }}>
                         Nexus
                       </option>
                     </select>
@@ -267,7 +199,6 @@ const CreateEvent = () => {
                 className={`form__input`}
                 id="venue"
                 placeholder=" "
-                {...register("venue")}
                 autoComplete="off"
               />
               <label htmlFor="venue" className="form__label required">
@@ -281,58 +212,14 @@ const CreateEvent = () => {
                 className={`form__input`}
                 id="onlineVenue"
                 placeholder=" "
-                {...register("venue")}
                 autoComplete="off"
               />
               <label htmlFor="onlineVenue" className="form__label required">
                 Online Venue
               </label>
+            
             </div>
           )}
-
-        </section>
-        <section>
-          <header className="form__inputSection__header">
-            <h2 className="text-red-500">Tickets Info</h2>
-            <p>
-              Provide the number of tickets you wish to sell for this event
-            </p>
-          </header><br />
-            <div className="form__inputContainer">
-              <input
-                type="number"
-                className={`form__input`}
-                id="tickets"
-                onChange={e=>setValue("tickets",parseInt(e.target.value?e.target.value:"0"))}
-                // {...register("tickets")}
-                placeholder=" "
-                autoComplete="off"
-              />
-              <label htmlFor="tickets" className="form__label required">
-                Number of Tickets
-              </label>
-            </div>
-            {errors.tickets?.message && (
-                    <div className="error text-red-500 capitalize text-sm">{errors.tickets?.message}</div>
-                  )}
-            <br />
-            <div className="form__inputContainer">
-              <input
-                type="number"
-                className={`form__input`}
-                id="price"
-                placeholder=" "
-                onChange={e=>setValue("pricePerTicket",parseFloat(e.target.value?e.target.value:"0"))}
-                // {...register("pricePerTicket")}
-                autoComplete="off"
-              />
-              <label htmlFor="price" className="form__label required">
-                Price Per Ticket(SOL)
-              </label>
-            </div>
-            {errors.pricePerTicket?.message && (
-                    <div className="error text-red-500 capitalize text-sm">{errors.pricePerTicket?.message}</div>
-                  )}
         </section>
 
               <hr className="line" />
@@ -349,7 +236,6 @@ const CreateEvent = () => {
                     variant="unstyled"
                     label="Events starts"
                     name="eventStarts"
-                    onChange={(date)=>setValue("eventStarts",date)}
                     className={`required dateTimePicker ${
                       errors.eventStarts?.message && "error"
                     }`}
@@ -364,7 +250,6 @@ const CreateEvent = () => {
                         errors.eventEnds?.message && "error"
                       }`}
                       name="eventEnds"
-                      onChange={(date)=>setValue("eventEnds",date)}
                     />
                     {errors.eventEnds?.message && (
                       <div className="error">{errors.eventEnds?.message}</div>
@@ -375,7 +260,7 @@ const CreateEvent = () => {
             </div>
             <footer className="createEvent__footer">
               <button className="discardBtn">Discard</button>
-              <button disabled={isSubmitting} type="submit" className="submitBtn">
+              <button type="submit" className="submitBtn">
                 Submit
               </button>
             </footer>

@@ -1,0 +1,60 @@
+
+// $display: "block";
+
+// @mixin isBlock(){
+//     flex-direction: column;
+//     @if $display == "block"{
+//         flex-direction: column;
+//     }
+    
+// }
+
+#reader__dashboard_section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .5rem;
+}
+
+
+span.html5-qrcode-element{
+    display: inline-block;
+    background-color: purple;
+    padding: .75rem 3.75rem;
+    margin-bottom: .25rem;
+}
+
+#html5-qrcode-button-camera-permission{
+    border: 1px solid purple;
+    padding: .75rem 1.5rem;
+}
+
+
+
+// #reader__dashboard_section>div:first-of-type:not([style*="display: none"]){
+//     @include updateDisplay("block")
+// }
+
+
+
+@media (width <= 600px) {
+    #reader__dashboard_section{
+        flex-direction: column;
+    }
+
+    span.html5-qrcode-element{
+        padding-inline: 3.75rem;
+    }
+
+    #reader__scan_region{
+        height: 50vh;
+    }
+}
+
+@media (width > 600px) {
+    #reader__scan_region{
+        width: 100%;
+        min-height: 100px;
+        text-align: center;
+    }
+}

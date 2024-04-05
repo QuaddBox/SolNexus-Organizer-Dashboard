@@ -1,4 +1,6 @@
-import z from 'zod'
+/** @format */
+
+import z from "zod";
 
 export const createEventVal = z.object({
     eventTitle: z.string({required_error: "Title is required"}).trim().min(3),
