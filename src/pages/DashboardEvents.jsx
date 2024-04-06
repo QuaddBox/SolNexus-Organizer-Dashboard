@@ -82,6 +82,7 @@ const DashboardEvents = () => {
           rightSection={<RxCaretDown size={20} />}
         />
       </div>
+      {/* //events */}
       {events
         .filter((e) => e.eventTitle.toLowerCase().includes(query.toLowerCase()))
         .filter(filterUpcomingEvents).length == 0 ? (
