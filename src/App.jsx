@@ -16,7 +16,7 @@ function App() {
         <Route path="/organizations/" element={<DashboardRoot />}>
           <Route index path="home" element={<DashboardHome />} />
           <Route path="events" element={<DashboardEvents />}/>
-          <Route path="orders" element={<DashboardVerifyTickets/>} />
+          <Route path="tickets/verify" element={<DashboardVerifyTickets/>} />
           <Route path="profile" element={<OrganizerProfile/>} />
         </Route>
         <Route path='/manage/events/'>
