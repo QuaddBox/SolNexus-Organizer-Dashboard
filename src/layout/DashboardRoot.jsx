@@ -9,6 +9,7 @@ import { BsFillTicketDetailedFill } from "react-icons/bs";
 
 
 const DashboardRoot = () => {
+
   return (
     <>
         <DashboardHeader />
@@ -16,10 +17,14 @@ const DashboardRoot = () => {
             <aside className="sidebar">
                 <ul >
                     <li>
-                        <NavLink to={'/organizations/home'}>
+                        <NavLink to={"/organizations/home"}>
                             <MdHome size={20}/>
                             Home
                         </NavLink>
+                        {/* <NavLink to={(location.pathname == "/organizations/home" || location.pathname == "/organizations/profile") ? location.pathname : "/organizations/home"}>
+                            <MdHome size={20}/>
+                            Home
+                        </NavLink> */}
                     </li>
                     <li>
                         <NavLink to={'/organizations/events'}>

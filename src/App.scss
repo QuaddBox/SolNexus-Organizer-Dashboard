@@ -1,5 +1,27 @@
 @use "./assets/styles/abstracts/" as *;
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  /* background: #b30000;  */
+}
+
+
 .logo {
   // color: black;
   font-size: 1rem;
@@ -34,9 +56,10 @@
   }
 }
 
-// @media (width <= 500px) {
-//   .mantine-Drawer-title,
-//   .logo {
-//     font-size: 1rem !important;
-//   }
-// }
+.m-18320242:where([data-visible])::before {
+  background-color: #141414 !important;
+}
+
+:where([data-mantine-color-scheme='light']) .m-18320242:where([data-visible])::after {
+  background-color: #141313;
+}

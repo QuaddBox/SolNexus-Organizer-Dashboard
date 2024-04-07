@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <WalletConnetProvider>
       <MantineProvider>
         <AuthContextProvider>
-        <App />
+          <App />
         </AuthContextProvider>
       </MantineProvider>
     </WalletConnetProvider>
