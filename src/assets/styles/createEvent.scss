@@ -261,3 +261,18 @@
 .form__inputSection__header h2{
 	font-size: 18px;
 }
+
+.select-option{
+	color: white !important;
+}
+
+.select-option:where([data-combobox-selected]) {
+	background-color: #880ad0 !important;
+}
+.select-option:hover {
+	background-color: #272727 !important;
+}
+
+.dropdown:focus{
+	border: 2px solid #880ad0 !important;
+}

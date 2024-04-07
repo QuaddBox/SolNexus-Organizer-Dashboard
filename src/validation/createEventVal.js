@@ -8,6 +8,8 @@ export const createEventVal = z.object({
     description: z.string({required_error: "Organizer is required"}).trim().min(20,{message:"Your description should atlest be 20 characters long"}),
     category: z.string({required_error: "Category is required"}).trim().min(3),
     venue: z.string({required_error: "please add event venue"}).trim().min(3),
+    state: z.string({required_error: "Please add the event venue state"}).trim().min(1),
+    country: z.string({required_error: "Please add the event venue country"}).trim().min(1),
     tickets: z.number({
         required_error: "tickets is required",
         invalid_type_error: "number of tickets must be a number",
