@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { Skeleton } from "@mantine/core";
 
+// organiserProfile
 export default function OrganizerProfile() {
   const { user, loadingConnection } = useContext(AuthContext);
     const imageRef = useRef(null);
