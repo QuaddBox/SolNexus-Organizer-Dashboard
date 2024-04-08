@@ -78,9 +78,9 @@ export default function AuthContextProvider({ children }) {
       }
     };
     checkIfWalletConnected();
-    if (!walletAddress) {
-      connectWallet();
-    }
+    // if (!walletAddress) {
+    //   connectWallet();
+    // }
   }, []);
 
   return (
