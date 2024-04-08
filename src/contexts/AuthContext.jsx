@@ -83,6 +83,19 @@ export default function AuthContextProvider({ children }) {
     // }
   }, []);
 
+  useEffect(() => {
+    const checkWalletAddress = async () => {
+      if(walletAddress){
+        const res = await AccountService.findUser(
+          response.publicKey.toString()
+        );
+        console.log(res);
+        setUser(res.data);
+      }
+    }
+    checkWalletAddress()
+  }, [walletAddress])
+
   return (
     <AuthContext.Provider
       value={{
