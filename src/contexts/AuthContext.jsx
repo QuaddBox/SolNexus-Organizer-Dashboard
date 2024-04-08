@@ -27,16 +27,18 @@ export default function AuthContextProvider({ children }) {
         // setLoading(true);
         if (solana) {
           if (solana.isPhantom) {
-            console.log("phatom is connected");
-            const response = await solana.connect({
-              onlyIfTrusted: true, //second time if anyone connected it won't show anypop on screen
-            });
+            console.log("phantom is connected");
+            const response = await solana.connect(
+            //   {
+            //   onlyIfTrusted: true, //second time if anyone connected it won't show anypop on screen
+            // }
+            );
             const res = await AccountService.findUser(
               response.publicKey.toString()
             );
             console.log(res);
             if (res.status !== "success") {
-              window.location.assign("http://localhost:5174/");
+              window.location.assign("https://sol-nexus-organizer.vercel.app/organizations/home");
             } else {
               addWalletAddress(response.publicKey.toString());
               setUser(res.data);

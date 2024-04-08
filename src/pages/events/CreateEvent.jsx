@@ -245,7 +245,7 @@ const CreateEvent = () => {
                 </div>
                 <div className="form__fieldContainer">
                   <div className="form__inputContainer">
-                  <div className="form__inputContainer">
+                    <div className="form__inputContainer">
                       <label
                         htmlFor=""
                         className="flex items-center gap-1 text-[15px] mb-1"
@@ -280,27 +280,15 @@ const CreateEvent = () => {
                           option: "select-option",
                           input: `dropdown ${
                             errors.category?.message && "error"
-                          }`
-                        }
-
-                      }
+                          }`,
+                        }}
                       />
+                      {errors.category?.message && (
+                        <div className="error text-red-500 capitalize text-sm">
+                          {errors.categpry?.message}
+                        </div>
+                      )}
                     </div>
-                    {/* <select
-                      name="category"
-                      id="category"
-                      className={`form__input select ${
-                        errors.category?.message && "error"
-                      }`}
-                      {...register("category")}
-                    >
-                      <option value="Nexus" style={{ color: "black" }}>
-                        Nexus
-                      </option>
-                    </select>
-                    <label htmlFor="category" className="form__label">
-                      Event Category
-                    </label> */}
                   </div>
                 </div>
               </section>
@@ -381,6 +369,11 @@ const CreateEvent = () => {
                           option: "select-option",
                         }}
                       />
+                      {errors.country?.message && (
+                        <div className="error text-red-500 capitalize text-sm">
+                          {errors.country?.message}
+                        </div>
+                      )}
                     </div>
                     <div className="form__inputContainer mt-5 mb-10">
                       <label
@@ -418,6 +411,11 @@ const CreateEvent = () => {
                         }}
                         disabled={country ? false : true}
                       />
+                      {errors.state?.message && (
+                        <div className="error text-red-500 capitalize text-sm">
+                          {errors.state?.message}
+                        </div>
+                      )}
                     </div>
                   </>
                 ) : (
