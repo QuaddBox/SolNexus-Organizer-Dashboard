@@ -88,7 +88,7 @@ export default function AuthContextProvider({ children }) {
     const checkWalletAddress = async () => {
       if(walletAddress){
         const res = await AccountService.findUser(
-          response.publicKey.toString()
+          walletAddress
         );
         console.log(res);
         setUser(res.data);

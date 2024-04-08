@@ -10,6 +10,7 @@ import {
   Menu,
   UnstyledButton,
   Loader,
+  rem,
 } from "@mantine/core";
 import { AiOutlineEdit } from "react-icons/ai";
 import { MdOutlineDelete } from "react-icons/md";
@@ -18,6 +19,9 @@ import { GoArrowSwitch } from "react-icons/go";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import { IconTrash } from "@tabler/icons-react";
+
+
 
 // eslint-disable-next-line react/display-name
 const UserButton = forwardRef(
@@ -67,6 +71,22 @@ const UserButton = forwardRef(
 );
 export default function Data() {
   const { user } = useContext(AuthContext);
+  const { addWalletAddress, walletAddress, setUser } = useContext(AuthContext);
+  const disconnectWallet = async () => {
+    const { solana } = window;
+    try {
+      // setLoading(true);
+      if (solana) {
+        await solana.disconnect();
+        addWalletAddress("")
+      } else {
+        alert("Please Install Solana's Phantom Wallet");
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Sorry could not connect to wallett try again later");
+    }
+  };
   // console.log(user)
   return (
     <Menu withArrow>
@@ -76,6 +96,7 @@ export default function Data() {
           image="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png"
           name={user ? user.name : "N/A"}
           email={user ? user.email : "N/A"}
+
         />
       </Menu.Target>
       {/* ... menu items */}
@@ -90,6 +111,15 @@ export default function Data() {
         <Menu.Divider />
 
         <Menu.Label>Danger zone</Menu.Label>
+        <Menu.Item
+          onClick={disconnectWallet}
+          color="red"
+          leftSection={
+            <IconTrash style={{ width: rem(14), height: rem(14) }} />
+          }
+        >
+          Disconnect
+        </Menu.Item>
         <Menu.Item color="red" leftSection={<MdOutlineDelete size={14} />}>
           Delete Account
         </Menu.Item>

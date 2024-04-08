@@ -83,25 +83,8 @@ const DashboardEvents = () => {
         />
       </div>
       {/* //events */}
-      {events
-        .filter((e) => e.eventTitle.toLowerCase().includes(query.toLowerCase()))
-        .filter(filterUpcomingEvents).length == 0 ? (
-        <div className="flex flex-col justify-center items-center h-[60vh]">
-          <p className="text-3xl font-medium text-gray-300 mb-4">
-            {/* You have not added a organization profile details */}
-            No events found
-          </p>
-        </div>
-      ) : (
-        events
-          .filter((e) =>
-            e.eventTitle.toLowerCase().includes(query.toLowerCase())
-          )
-          .filter(filterUpcomingEvents)
-          .map((event) => {
-            return <EventsTable key={event.id} {...event} />;
-          })
-      )}
+      <EventsTable query={query} setQuery={setQuery} eventStatus={eventStatus} setEventStatus={setEventStatus}/>
+      
     </div>
   );
 };

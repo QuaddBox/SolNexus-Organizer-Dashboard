@@ -3,6 +3,7 @@ import Logo from "./Logo";
 import MenuDrawer from "./MenuDrawer";
 import UserButton from "./UserButton";
 import { AuthContext } from "../contexts/AuthContext";
+import  AccountService from "../../services/Accounts"
 
 const DashboardHeader = () => {
   const { addWalletAddress, walletAddress, setUser } = useContext(AuthContext);
@@ -23,9 +24,7 @@ const DashboardHeader = () => {
       }
     } catch (err) {
       console.log(err);
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
   return (
     <header className="dashboard__header">
