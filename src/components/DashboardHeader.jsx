@@ -5,7 +5,7 @@ import UserButton from "./UserButton";
 import { AuthContext } from "../contexts/AuthContext";
 
 const DashboardHeader = () => {
-  const { addWalletAddress, walletAddress } = useContext(AuthContext);
+  const { addWalletAddress, walletAddress, setUser } = useContext(AuthContext);
   const connectWallet = async () => {
     try {
       // setLoading(true);
@@ -37,7 +37,8 @@ const DashboardHeader = () => {
         ) : (
           <button
             onClick={connectWallet}
-            className="text-white font-medium bg-[#670c8b] py-[6px] px-4 rounded-[20px] flex justify-center items-center"
+            className="text-white font-medium bg-[#670c8b] py-[6px] px-4 rounded-[20px] 
+            flex justify-center items-center"
           >
             Connect Wallet
           </button>

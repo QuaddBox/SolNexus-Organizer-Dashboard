@@ -10,6 +10,7 @@ export const AuthContext = createContext({
     console.log(address);
   },
   user: null,
+  setUser
 });
 
 export default function AuthContextProvider({ children }) {
@@ -103,6 +104,7 @@ export default function AuthContextProvider({ children }) {
         addWalletAddress,
         loadingConnection: loading,
         user,
+        setUser
       }}
     >
       {children}
