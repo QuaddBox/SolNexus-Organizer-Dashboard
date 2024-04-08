@@ -20,6 +20,28 @@ export default function AuthContextProvider({ children }) {
     setWalletAddress(value);
   };
 
+  const connectWallet = async () => {
+    try {
+      // setLoading(true);
+      if (solana) {
+        if (solana.isPhantom) {
+          console.log("phantom is connected");
+          const response = await solana.connect();
+          const res = await AccountService.findUser(
+            response.publicKey.toString()
+          );
+          console.log(res);
+          addWalletAddress(response.publicKey.toString());
+          setUser(res.data);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const checkIfWalletConnected = async () => {
       const { solana } = window;
@@ -28,23 +50,25 @@ export default function AuthContextProvider({ children }) {
         if (solana) {
           if (solana.isPhantom) {
             console.log("phantom is connected");
-            const response = await solana.connect(
-            //   {
-            //   onlyIfTrusted: true, //second time if anyone connected it won't show anypop on screen
-            // }
-            );
+            const response = await solana.connect({
+              onlyIfTrusted: true, //second time if anyone connected it won't show anypop on screen
+            });
             const res = await AccountService.findUser(
               response.publicKey.toString()
             );
             console.log(res);
-            if (res.status !== "success") {
-              window.location.assign("https://sol-nexus-organizer.vercel.app/organizations/home");
-            } else {
-              addWalletAddress(response.publicKey.toString());
-              setUser(res.data);
-              // console.log(res.data)
-              //  console.log("public key", response.publicKey.toString());
-            }
+            addWalletAddress(response.publicKey.toString());
+            setUser(res.data);
+            // if (res.status !== "success") {
+            //   window.location.assign(
+            //     "https://sol-nexus-organizer.vercel.app/organizations/home"
+            //   );
+            // } else {
+            //   addWalletAddress(response.publicKey.toString());
+            //   setUser(res.data);
+            //   // console.log(res.data)
+            //   //  console.log("public key", response.publicKey.toString());
+            // }
           }
         }
       } catch (err) {
@@ -54,6 +78,9 @@ export default function AuthContextProvider({ children }) {
       }
     };
     checkIfWalletConnected();
+    if (!walletAddress) {
+      connectWallet();
+    }
   }, []);
 
   return (
