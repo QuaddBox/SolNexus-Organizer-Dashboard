@@ -10,7 +10,7 @@ export const AuthContext = createContext({
     console.log(address);
   },
   user: null,
-  setUser
+  setUser: () => null
 });
 
 export default function AuthContextProvider({ children }) {
