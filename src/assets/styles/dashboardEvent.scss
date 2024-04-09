@@ -45,7 +45,8 @@
 
     &__body {
       tr {
-        padding-block: 1rem;
+        // padding-block: 1rem;
+        margin-bottom: 1rem;
         .event {
           display: flex;
           align-items: center;
