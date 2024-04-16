@@ -272,7 +272,7 @@ const CreateEvent = () => {
                             backgroundColor: "#07000a",
                           },
                         }}
-                        data={["Gaming", "Food"]}
+                        data={["Gaming", "Food", "Technology", "Music", "Visual Art", "Nightlife", "Culture"]}
                         rightSectionPointerEvents="none"
                         rightSection={<PiCaretDown />}
                         className=""
