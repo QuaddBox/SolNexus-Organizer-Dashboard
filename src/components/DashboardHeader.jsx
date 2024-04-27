@@ -5,8 +5,8 @@ import UserButton from "./UserButton";
 import { AuthContext } from "../contexts/AuthContext";
 import AccountService from "../../services/Accounts";
 import { Loader, Modal, ModalBody } from "@mantine/core";
-import phantomIcon from '../assets/images/phantomIcon.svg'
-import 	solflareIcon from '../assets/images/solflare-white-logo.svg'
+import phantomIcon from "../assets/images/phantomIcon.svg";
+import solflareIcon from "../assets/images/solflare-white-logo.svg";
 import useConnectWallet from "../hooks/useConnectWallet";
 
 const DashboardHeader = () => {
@@ -24,7 +24,7 @@ const DashboardHeader = () => {
     name,
     setName,
     loading,
-    addAccount
+    addAccount,
   } = useConnectWallet();
   const connectWallet = async () => {
     try {
@@ -47,11 +47,11 @@ const DashboardHeader = () => {
   };
 
   const handleSubmit = async (e) => {
-		e.preventDefault();
-		// await connectWallet()
-		addAccount(walletAddress)
-		setIsOpened(false)
-	}
+    e.preventDefault();
+    // await connectWallet()
+    addAccount(walletAddress);
+    setIsOpened(false);
+  };
   return (
     <header className="dashboard__header">
       <Logo />
@@ -65,8 +65,8 @@ const DashboardHeader = () => {
         }}
         // classNames={{root: ""}}
         styles={{
-          header: {backgroundColor: "#07000a"},
-          body: {backgroundColor: "#07000a"},
+          header: { backgroundColor: "#07000a" },
+          body: { backgroundColor: "#07000a" },
           content: { border: "1px solid white" },
         }}
         centered
@@ -118,11 +118,11 @@ const DashboardHeader = () => {
           blur: 3,
         }}
         styles={{
-          header: {backgroundColor: "#07000a"},
-          body: {backgroundColor: "#07000a"},
+          header: { backgroundColor: "#07000a" },
+          body: { backgroundColor: "#07000a" },
           content: { border: "1px solid white" },
         }}
-        className={{root: "bg-transparent"}}
+        className={{ root: "bg-transparent" }}
         onClose={close}
         centered
       >
@@ -135,8 +135,14 @@ const DashboardHeader = () => {
             onClick={connectToSolflareWallet}
             className="mt-5 bg-[#141414] text-lg w-full px-4 py-3 flex items-center justify-center gap-3 font-medium rounded-lg"
           >
-            <img src={solflareIcon} alt="" className="w-9 rounded-md" />
-            Solflare Wallet (Recommended)
+            {loading ? (
+              <Loader size={20} color="white" />
+            ) : (
+              <>
+                <img src={solflareIcon} alt="" className="w-9 rounded-md" />
+                <p>Solflare Wallet (Recommended)</p>
+              </>
+            )}
           </button>
           <button
             onClick={connectToPhantomWallet}

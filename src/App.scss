@@ -63,3 +63,7 @@
 :where([data-mantine-color-scheme='light']) .m-18320242:where([data-visible])::after {
   background-color: #141313;
 }
+
+video#qrScanner {
+  transform: scaleX(-100%);
+}
