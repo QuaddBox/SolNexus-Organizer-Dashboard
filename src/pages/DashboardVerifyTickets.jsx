@@ -22,7 +22,7 @@ const DashboardVerifyTickets = () => {
           height: 250,
         },
         fps: 4,
-  
+        disableFlip: false
       });
       const success = (result) => {
         scanner.getRunningTrackSettings().facingMode
