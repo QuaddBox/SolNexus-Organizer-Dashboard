@@ -70,8 +70,7 @@ const UserButton = forwardRef(
   )
 );
 export default function Data() {
-  const { user } = useContext(AuthContext);
-  const { addWalletAddress, walletAddress, setUser } = useContext(AuthContext);
+  const { user, addWalletAddress  } = useContext(AuthContext);
   const disconnectWallet = async () => {
     const { solana } = window;
     try {

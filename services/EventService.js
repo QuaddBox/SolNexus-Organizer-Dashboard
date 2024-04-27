@@ -32,6 +32,9 @@ class EventsService{
     async getEvents(){
       return await firebaseService.get()
     }
+    async getTickets(email){
+      return await firebaseService.find("attendee",email)
+    } 
     async getEventsByEmail(email){
       return await firebaseService.find("email",email)
     }
@@ -41,6 +44,9 @@ class EventsService{
     async getEvent(id){
       return await firebaseService.findById(id)
     }
+    async getTickets(email){
+      return await firebaseService.find("attendee",email)
+    } 
 }
 
 export default new EventsService()

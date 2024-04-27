@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
 import AccountService from "../../services/Accounts";
+import { useDisclosure } from "@mantine/hooks";
 
 export const AuthContext = createContext({
   walletAddress: null,
@@ -10,13 +11,14 @@ export const AuthContext = createContext({
     console.log(address);
   },
   user: null,
-  setUser: () => null
+  setUser: () => null,
 });
 
 export default function AuthContextProvider({ children }) {
   const [walletAddress, setWalletAddress] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [opened, { open, close }] = useDisclosure(false);
   const addWalletAddress = (value) => {
     setWalletAddress(value);
   };
@@ -78,24 +80,22 @@ export default function AuthContextProvider({ children }) {
         setLoading(false);
       }
     };
-    checkIfWalletConnected();
-    // if (!walletAddress) {
-    //   connectWallet();
-    // }
+    // checkIfWalletConnected();
+    if (walletAddress == "" || null) {
+      open()
+    }
   }, []);
 
   useEffect(() => {
     const checkWalletAddress = async () => {
-      if(walletAddress){
-        const res = await AccountService.findUser(
-          walletAddress
-        );
+      if (walletAddress) {
+        const res = await AccountService.findUser(walletAddress);
         console.log(res);
         setUser(res.data);
       }
-    }
-    checkWalletAddress()
-  }, [walletAddress])
+    };
+    checkWalletAddress();
+  }, [walletAddress]);
 
   return (
     <AuthContext.Provider
@@ -104,7 +104,10 @@ export default function AuthContextProvider({ children }) {
         addWalletAddress,
         loadingConnection: loading,
         user,
-        setUser
+        setUser,
+        opened,
+        open,
+        close
       }}
     >
       {children}
